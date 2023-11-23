@@ -40,6 +40,7 @@ export const BarSearch = ({
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
+
       handleSeach(e);
     }
   };

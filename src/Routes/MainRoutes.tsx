@@ -1,14 +1,52 @@
 import { useRoutes } from "react-router-dom";
-import Home from "../Components/Home";
-import Dog from "../Components/dogs";
-import Cat from "../Components/cats";
-import Fish from "../Components/fishes";
+import AnimalsFilter from "../Components/AnimalsComponents/AnimalsFilter";
+import { NotFounded } from "../Components/RouteComponents/notFounded/notFounded";
 
 export const MainRoute = () => {
   return useRoutes([
-    { path: "/", element: <Home /> },
-    { path: "/dog", element: <Dog /> },
-    { path: "/cat", element: <Cat /> },
-    { path: "/fish", element: <Fish /> },
+    {
+      path: "/",
+      element: (
+        <AnimalsFilter
+          animalsType=""
+          animalsName="Animais"
+          animalsImage="../../public/images/allanimals.jpg"
+        />
+      ),
+    },
+    {
+      path: "/dog",
+      element: (
+        <AnimalsFilter
+          animalsType="dog"
+          animalsName="Cachorros"
+          animalsImage="../../public/images/banner_dog.jpg"
+        />
+      ),
+    },
+    {
+      path: "/cat",
+      element: (
+        <AnimalsFilter
+          animalsType="cat"
+          animalsName="Gatos"
+          animalsImage="../../public/images/banner_cat.jpg"
+        />
+      ),
+    },
+    {
+      path: "/fish",
+      element: (
+        <AnimalsFilter
+          animalsType="fish"
+          animalsName="Peixes"
+          animalsImage="../../public/images/banner_fish.jpg"
+        />
+      ),
+    },
+    {
+      path: "/*",
+      element: <NotFounded />,
+    },
   ]);
 };

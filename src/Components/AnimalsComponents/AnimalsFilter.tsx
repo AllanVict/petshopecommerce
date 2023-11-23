@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { BarSearch } from "./ComponentsFunc/barSeach";
-import { PetsTypes } from "../hooks/TypesItens";
+import { BarSearch } from "./SearchBar";
+import { PetsTypes } from "../../hooks/TypesItems";
 
-const Fish = () => {
+const AnimalsFilter = ({
+  animalsType,
+  animalsName,
+  animalsImage,
+}: {
+  animalsType: string;
+  animalsName: string;
+  animalsImage: any;
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [allAnimais, setAllAnimais] = useState<PetsTypes[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/fish");
+        const response = await axios.get(
+          `http://localhost:3000/${animalsType}`
+        );
         setAllAnimais(response.data);
         setLoading(true);
       } catch (error) {
@@ -19,7 +29,7 @@ const Fish = () => {
     };
 
     fetchData();
-  }, []);
+  }, [animalsType]);
   const handleSearchResult = (result: any) => {
     setAllAnimais(result);
   };
@@ -29,17 +39,11 @@ const Fish = () => {
       {/* Top Section */}
       <BarSearch onSearch={handleSearchResult} />
       <div className="h-[350px] bg-cover bg-center flex justify-center align-middle mb-8">
-        {
-          <img
-            className="w-full"
-            src={`../../public/images/banner_fish.jpg`}
-            alt=""
-          />
-        }
+        {<img className="w-full" src={`${animalsImage}`} alt="" />}
       </div>
       <div className="">
         <h2 className="flex text-[20px] justify-center mb-[30px]">
-          Todos os Peixes disponiveis para adoção
+          Todos os {animalsName} disponiveis para adoção
         </h2>
         {loading ? (
           <div className=" max-w-7xl mx-auto grid grid-cols-5 gap-4 ">
@@ -69,4 +73,4 @@ const Fish = () => {
     </div>
   );
 };
-export default Fish;
+export default AnimalsFilter;
